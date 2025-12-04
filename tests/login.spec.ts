@@ -1,8 +1,12 @@
 import { test } from '@playwright/test';
 import { LoginPage } from './pages/loginPage';
 import { TEST_DATA } from './data/testData';
+import { qase } from 'playwright-qase-reporter';
+
 
 test('[Supervisor] login to platform', async ({ page }) => {
+  qase.id(733);
+
   const loginPage = new LoginPage(page);
 
   await loginPage.navigate();
@@ -12,13 +16,15 @@ test('[Supervisor] login to platform', async ({ page }) => {
   await loginPage.assertDashboardVisible();
 });
 
-test('[Supervisor] forgot password', async ({ page }) => {
+test.skip('[Supervisor] forgot password', async ({ page }) => {
+  qase.id(735);
+
   const loginPage = new LoginPage(page);
-
-
 });
 
 test('[Director] login to platform', async ({ page }) => {
+  qase.id(737);
+
   const loginPage = new LoginPage(page);
 
   await loginPage.navigate();
@@ -28,13 +34,15 @@ test('[Director] login to platform', async ({ page }) => {
   await loginPage.assertDashboardVisible();
 });
 
-test('[Director] forgot password', async ({ page }) => {
+test.skip('[Director] forgot password', async ({ page }) => {
+  qase.id(738);
   const loginPage = new LoginPage(page);
 
 
 });
 
 test('[HR] login to platform', async ({ page }) => {
+  qase.id(745);
   const loginPage = new LoginPage(page);
 
   await loginPage.navigate();
@@ -44,7 +52,8 @@ test('[HR] login to platform', async ({ page }) => {
   await loginPage.assertDashboardVisible();
 });
 
-test('[HR] forgot password', async ({ page }) => {
+test.skip('[HR] forgot password', async ({ page }) => {
+  qase.id(746);
   const loginPage = new LoginPage(page);
 
 

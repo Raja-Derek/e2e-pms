@@ -10,7 +10,7 @@ export class LoginPage {
   }
 
   async navigate() {
-    await this.page.goto(`${TEST_DATA.baseUrl}/sign-in`);
+    await this.page.goto(TEST_DATA.baseUrl);
   }
 
   async enterEmail(email: string) {

@@ -1,12 +1,14 @@
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 export const TEST_DATA = {
-  dirutEmail: 'henry@lcc.com',
-  dirutPassword: 'lccjayajayajaya',
-  supervisorEmail: 'budi@lcc.com',
-  supervisorPassword: 'lccjayajayajaya',
-  adminEmail: 'admin@lcc.com',
-  adminPassword: 'lccjayajayajaya',
-  hrEmail: 'hr@lcc.com',
-  hrPassword: 'lccjayajayajaya',
-  baseUrl: 'https://dev-pms.lintascakracipta.com',
+  supervisorEmail: process.env.SUPERVISOR_EMAIL || '',
+  supervisorPassword: process.env.SUPERVISOR_PASSWORD || '',
+  dirutEmail: process.env.DIRUT_EMAIL || '',
+  dirutPassword: process.env.DIRUT_PASSWORD || '',
+  hrEmail: process.env.HR_EMAIL || '',
+  hrPassword: process.env.HR_PASSWORD || '',
+  baseUrl: process.env.BASE_URL || '',
   notifLogin: 'Berhasil login' // ubah sesuai pesan notifikasi yang diharapkan
 };
