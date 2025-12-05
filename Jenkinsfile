@@ -4,19 +4,42 @@ pipeline {
             yaml '''
                 apiVersion: v1
                 kind: Pod
+                metadata:
+                labels:
+                    agent: jenkins
                 spec:
-                    containers:
-                      - name: playwright
-                        image: mcr.microsoft.com/playwright:v1.42.0-jammy
-                        command:
-                            - cat
-                        tty: true
-                        volumeMounts:
-                          - name: workspace-volume
-                            mountPath: /home/jenkins/agent
-                    volumes:
-                      - name: workspace-volume
-                        emptyDir: {}
+                containers:
+                    - name: docker
+                    image: docker:24.0.7-dind
+                    command:
+                        - dockerd-entrypoint.sh
+                    tty: true
+                    securityContext:
+                    privileged: true
+                    env:
+                        - name: DOCKER_TLS_CERTDIR
+                    value: ""
+                    - name: kubectl
+                    image: alpine/k8s:1.28.3
+                    command:
+                        - cat
+                    tty: true
+                    - name: playwright
+                    image: mcr.microsoft.com/playwright:v1.48.0-jammy
+                    command:
+                        - cat
+                    tty: true
+                    securityContext:
+                        runAsUser: 0
+                        privileged: true
+                        allowPrivilegeEscalation: true
+                    resources:
+                        limits:
+                        cpu: "2"
+                        memory: "4Gi"
+                        requests:
+                        cpu: "1"
+                        memory: "2Gi"
                 '''
             defaultContainer 'playwright'
         }
