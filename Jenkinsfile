@@ -15,6 +15,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci'
+                sh 'npm install -D ts-node typescript'
             }
         }
 
