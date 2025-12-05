@@ -36,7 +36,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Raja-Derek/e2e-pms'
+                checkout scm
             }
         }
 
