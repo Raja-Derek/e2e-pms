@@ -19,7 +19,7 @@ pipeline {
                     env:
                         - name: DOCKER_TLS_CERTDIR
                     value: ""
-                    - name: kubectl
+                        - name: kubectl
                     image: alpine/k8s:1.28.3
                     command:
                         - cat
@@ -35,11 +35,11 @@ pipeline {
                         allowPrivilegeEscalation: true
                     resources:
                         limits:
-                        cpu: "2"
-                        memory: "4Gi"
+                            cpu: "2"
+                            memory: "4Gi"
                         requests:
-                        cpu: "1"
-                        memory: "2Gi"
+                            cpu: "1"
+                            memory: "2Gi"
                 '''
             defaultContainer 'playwright'
         }
