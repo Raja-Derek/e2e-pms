@@ -25,10 +25,31 @@ spec:
     }
 
     stages {
-        stage("Check") {
+        stage("Checkout Repo") {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage("Install Dependencies") {
             steps {
                 sh "node -v"
-                sh "npx playwright --version"
+                sh "npm install"           // install dependencies
+                sh "npx playwright install" // install browsers
+            }
+        }
+
+        stage("Run Playwright Tests") {
+            steps {
+                sh "npx playwright test --reporter=line"
+            }
+        }
+
+        stage("Archive Test Report") {
+            steps {
+                // jika kamu pakai HTML report
+                sh "npx playwright show-report || true"
+                archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
             }
         }
     }
