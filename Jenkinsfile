@@ -1,21 +1,48 @@
 pipeline {
     agent {
-        docker {
-            image 'mcr.microsoft.com/playwright:v1.42.0-jammy'
-            args '-u root'   // supaya container punya akses write
+        kubernetes {
+            yaml '''
+                apiVersion: v1
+                kind: Pod
+                spec:
+                    containers:
+                      - name: playwright
+                        image: mcr.microsoft.com/playwright:v1.42.0-jammy
+                        command:
+                            - cat
+                        tty: true
+                        volumeMounts:
+                          - name: workspace-volume
+                            mountPath: /home/jenkins/agent
+                    volumes:
+                      - name: workspace-volume
+                        emptyDir: {}
+                '''
+            defaultContainer 'playwright'
         }
+    }
+
+    tools {
+        nodejs 'node-18'   // gunakan Node yang sudah di-setup di Jenkins
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Raja-Derek/e2e-pms'
+                checkout scm
             }
         }
 
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci'
+                sh 'npm install -D ts-node typescript'
+            }
+        }
+
+        stage('Install Playwright Browsers') {
+            steps {
+                sh 'npx playwright install --with-deps'
             }
         }
 
@@ -40,7 +67,8 @@ pipeline {
                     allowMissing: false,
                     keepAll: true,
                     alwaysLinkToLastBuild: true
-                ])
+                    ]
+                )
             }
         }
     }
