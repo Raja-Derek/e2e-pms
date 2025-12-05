@@ -5,41 +5,41 @@ pipeline {
                 apiVersion: v1
                 kind: Pod
                 metadata:
-                labels:
-                    agent: jenkins
+                    labels:
+                        agent: jenkins
                 spec:
-                containers:
-                    - name: docker
-                    image: docker:24.0.7-dind
-                    command:
-                        - dockerd-entrypoint.sh
-                    tty: true
-                    securityContext:
-                    privileged: true
-                    env:
-                        - name: DOCKER_TLS_CERTDIR
-                    value: ""
-                        - name: kubectl
-                    image: alpine/k8s:1.28.3
-                    command:
-                        - cat
-                    tty: true
-                    - name: playwright
-                    image: mcr.microsoft.com/playwright:v1.48.0-jammy
-                    command:
-                        - cat
-                    tty: true
-                    securityContext:
-                        runAsUser: 0
+                    containers:
+                        - name: docker
+                        image: docker:24.0.7-dind
+                        command:
+                            - dockerd-entrypoint.sh
+                        tty: true
+                        securityContext:
                         privileged: true
-                        allowPrivilegeEscalation: true
-                    resources:
-                        limits:
-                            cpu: "2"
-                            memory: "4Gi"
-                        requests:
-                            cpu: "1"
-                            memory: "2Gi"
+                        env:
+                            - name: DOCKER_TLS_CERTDIR
+                        value: ""
+                            - name: kubectl
+                        image: alpine/k8s:1.28.3
+                        command:
+                            - cat
+                        tty: true
+                        - name: playwright
+                        image: mcr.microsoft.com/playwright:v1.48.0-jammy
+                        command:
+                            - cat
+                        tty: true
+                        securityContext:
+                            runAsUser: 0
+                            privileged: true
+                            allowPrivilegeEscalation: true
+                        resources:
+                            limits:
+                                cpu: "2"
+                                memory: "4Gi"
+                            requests:
+                                cpu: "1"
+                                memory: "2Gi"
                 '''
             defaultContainer 'playwright'
         }
