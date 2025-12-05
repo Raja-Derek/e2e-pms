@@ -39,11 +39,15 @@ pipeline {
 
         stage('Publish HTML Report') {
             steps {
-                publishHTML([
+                publishHTML(target: [
                     reportDir: 'playwright-report',
                     reportFiles: 'index.html',
-                    reportName: 'Playwright Test Report'
-                ])
+                    reportName: 'Playwright Test Report',
+                    allowMissing: false,
+                    keepAll: true,
+                    alwaysLinkToLastBuild: true
+                    ]
+                )
             }
         }
     }
