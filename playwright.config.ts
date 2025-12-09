@@ -15,10 +15,14 @@ dotenv.config();
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 10000,
+  globalSetup: 'tests/auth/global-setup.ts',
+
   use: {
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    trace: 'on-first-retry'
+    trace: 'on-first-retry',
+    storageState: 'storage/auth.json',
   },
   reporter: [
     ['list'],
@@ -54,7 +58,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   // reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  
+
 
   /* Configure projects for major browsers */
   projects: [
@@ -62,6 +66,28 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+
+    {
+      name: 'supervisor',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './tests/auth/supervisor.json'
+      }
+    },
+    {
+      name: 'director',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './tests/auth/director.json'
+      }
+    },
+    {
+      name: 'hr',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './tests/auth/hr.json'
+      }
+    }
 
     // {
     //   name: 'firefox',

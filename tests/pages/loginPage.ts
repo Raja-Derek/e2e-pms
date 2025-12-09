@@ -31,8 +31,10 @@ export class LoginPage {
   }
 
   async login(email: string, password: string) {
+    await this.navigate();
     await this.enterEmail(email);
     await this.enterPassword(password);
     await this.clickLogin();
   }
+
 }
