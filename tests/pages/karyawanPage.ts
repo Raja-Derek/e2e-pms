@@ -41,6 +41,53 @@ export class KaryawanPage extends BasePage {
 
     }
 
+    async chooseEvaluasiPerforma() {
+        await this.page.getByText('Evaluasi Performance').click();
+
+    }
+
+    async assertEvaluasiPerformaPageVisible() {
+        await expect(this.page.getByRole('heading', { name: 'Penilaian Performa' })).toBeVisible();
+        await expect(this.page.getByText('Penilaian karyawan secara')).toBeVisible();
+        await expect(this.page.getByText('Informasi KaryawanNamaADAM1Divisi-Departemen-JabatanKaryawanBulan')).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Managerial Skill' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Professional Skill' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Kepribadian' })).toBeVisible();
+        await expect(this.page.getByRole('button', { name: 'Simpan' })).toBeVisible();
+    }
+
+    async provideEvaluasiPerforma() {
+        await this.page.getByRole('button', { name: 'A' }).nth(1).click();
+        await this.page.getByRole('button', { name: 'A' }).nth(2).click();
+        await this.page.getByRole('button', { name: 'A' }).nth(3).click();
+        await this.page.getByRole('button', { name: 'A' }).nth(4).click();
+        await this.page.getByRole('button', { name: 'A' }).nth(5).click();
+        await this.page.getByRole('button', { name: 'A', exact: true }).nth(5).click();
+        await this.page.locator('div:nth-child(2) > .space-y-6 > div:nth-child(3) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(2) > .space-y-6 > div:nth-child(4) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(3) > .space-y-6 > div > .flex > button').first().click();
+        await this.page.locator('div:nth-child(3) > .space-y-6 > div:nth-child(2) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(3) > .space-y-6 > div:nth-child(3) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(3) > .space-y-6 > div:nth-child(4) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(5) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(6) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(7) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(8) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(9) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(10) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(11) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(12) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(13) > .flex > button').first().click();
+        await this.page.locator('div:nth-child(14) > .flex > button').first().click();
+        await this.page.getByRole('button', { name: 'Simpan' }).click();
+        await this.page.getByRole('button', { name: 'Simpan' }).click();
+    }
+
+    async assertEvaluasiPerforma() {
+        await expect(this.page.locator('.lucide.lucide-circle-check')).toBeVisible();
+
+    }
+
     async assertEvaluasiAbsensiPageVisible() {
         await expect(this.page.getByRole('heading', { name: 'Penilaian Absensi' })).toBeVisible();
         await expect(this.page.getByText('Penilaian karyawan secara')).toBeVisible();
@@ -78,5 +125,10 @@ export class KaryawanPage extends BasePage {
         const base = new BasePage(this.page);
 
         console.log('Bulan sekarang adalah: ' + base.getCurrentMonthName());
+    }
+
+    async checkboxHanyaBawahanSaya() {
+        await this.page.getByRole('checkbox', { name: 'Hanya Bawahan Saya' }).click();
+
     }
 }
