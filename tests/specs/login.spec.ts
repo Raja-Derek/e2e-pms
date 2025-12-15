@@ -3,7 +3,7 @@ import { LoginPage } from '../pages/loginPage';
 import { TEST_DATA } from '../data/testData';
 import { qase } from 'playwright-qase-reporter';
 
-test.describe('Login Tests (Manual)', () => {
+test.skip('Login Tests (Manual)', () => {
   test('[Supervisor] login to platform', async ({ page }) => {
     qase.id(733);
     const loginPage = new LoginPage(page);

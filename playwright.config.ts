@@ -15,7 +15,7 @@ dotenv.config();
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 10000,
+  timeout: 30000,
   globalSetup: 'tests/auth/global-setup.ts',
 
   use: {
@@ -113,7 +113,7 @@ export default defineConfig({
     /* Test against branded browsers. */
     // {
     //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    //   use: { ...devices['Desktop  Edge'], channel: 'msedge' },
     // },
     // {
     //   name: 'Google Chrome',

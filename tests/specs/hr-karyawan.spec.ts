@@ -5,7 +5,7 @@ import { KaryawanPage } from '../pages/karyawanPage';
 
 test.describe('HR Karyawan Menu Tests', () => {
     test('[HR] Validate menu karyawan', async ({ karyawanPageHR }) => {
-        qase.id([745, 826,]);
+        qase.id([745, 826]);
 
 
         await karyawanPageHR.navigate();
@@ -25,7 +25,7 @@ test.describe('HR Karyawan Menu Tests', () => {
         await karyawanPageHR.navigate();
 
         //Ganti bulan ini untuk test
-        await karyawanPageHR.changeMonthFilter('Februari');
+        await karyawanPageHR.changeMonthFilter('April');
 
         await karyawanPageHR.chooseKaryawan('adirangga');
         await karyawanPageHR.chooseEvaluasiAbsensi();
@@ -39,7 +39,7 @@ test.describe('HR Karyawan Menu Tests', () => {
         await karyawanPageHR.navigate();
 
         //Ganti bulan ini untuk test
-        await karyawanPageHR.changeMonthFilter('Maret');
+        await karyawanPageHR.changeMonthFilter('April');
 
         // checkbox hanya bawahan saya
         await karyawanPageHR.checkboxHanyaBawahanSaya();
