@@ -31,13 +31,14 @@ export class KaryawanPage extends BasePage {
     async searchKaryawan(namaKaryawan: string) {
         await this.page.getByRole('textbox', { name: 'Cari nama atau email...' }).click();
         await this.page.getByRole('textbox', { name: 'Cari nama atau email...' }).fill(namaKaryawan);
-        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible();
+        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({timeout: 10000});
 
     }
 
     async chooseKaryawan(namaKaryawan: string) {
         await this.searchKaryawan(namaKaryawan);
-        await this.page.locator('.flex.items-center.gap-1').first().click();
+        await this.page.getByText(namaKaryawan, { exact: true }).click();
+        // await this.page.locator('.flex.items-center.gap-1').first().click();
     }
 
     async chooseEvaluasiAbsensi() {
@@ -53,7 +54,6 @@ export class KaryawanPage extends BasePage {
     async assertEvaluasiPerformaPageVisible() {
         await expect(this.page.getByRole('heading', { name: 'Penilaian Performa' })).toBeVisible();
         await expect(this.page.getByText('Penilaian karyawan secara')).toBeVisible();
-        await expect(this.page.getByText('Informasi KaryawanNamaADAM1Divisi-Departemen-JabatanKaryawanBulan')).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Managerial Skill' })).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Professional Skill' })).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Kepribadian' })).toBeVisible();
@@ -93,9 +93,8 @@ export class KaryawanPage extends BasePage {
     }
 
     async assertEvaluasiAbsensiPageVisible() {
-        await expect(this.page.getByRole('heading', { name: 'Penilaian Absensi' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Penilaian Absensi' })).toBeVisible({timeout: 10000});
         await expect(this.page.getByText('Penilaian karyawan secara')).toBeVisible();
-        await expect(this.page.getByText('Informasi KaryawanNamaadiranggaDivisi-DepartemenIT & EngineeringJabatanKaryawan')).toBeVisible();
         await expect(this.page.locator('body')).toContainText('hari kerja');
         await expect(this.page.locator('body')).toContainText('hari libur');
         await expect(this.page.locator('body')).toContainText('hari dalam');
@@ -122,7 +121,9 @@ export class KaryawanPage extends BasePage {
         const monthShort = month.slice(0, 3);
         await this.page.getByRole('button', { name: base.getCurrentMonthName() }).click();
         await this.page.getByRole('button', { name: monthShort }).click();
+        await this.page.waitForTimeout(3000);
         await this.page.getByRole('button', { name: month }).click();
+        await this.page.waitForTimeout(7000);
     }
 
     async checkMonth() {

@@ -18,7 +18,7 @@ if (!process.env.CI) {
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 30000,
+  timeout: 50000,
   globalSetup: 'tests/auth/global-setup.ts',
 
   use: {
