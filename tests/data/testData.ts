@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv';
 
-dotenv.config();
+if (!process.env.CI) {
+  dotenv.config();
+}
 
 export const TEST_DATA = {
   supervisorEmail: process.env.SUPERVISOR_EMAIL || '',
