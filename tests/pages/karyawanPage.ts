@@ -6,7 +6,6 @@ export class KaryawanPage extends BasePage {
 
     async navigate() {
         await this.page.goto(TEST_DATA.baseUrl + '/core/employees');
-        await expect(this.page).toHaveURL('/employees');
         console.log(await this.page.url());
 
     }

@@ -1,7 +1,5 @@
 import { test } from '../fixtures/roles';
-import { expect } from '@playwright/test';
 import { qase } from 'playwright-qase-reporter';
-import { KaryawanPage } from '../pages/karyawanPage';
 
 test.describe('HR Karyawan Menu Tests', () => {
     test('[HR] Validate menu karyawan', async ({ karyawanPageHR }) => {
