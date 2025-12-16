@@ -70,27 +70,27 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'supervisor',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: './tests/auth/supervisor.json'
-      }
-    },
-    {
-      name: 'director',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: './tests/auth/director.json'
-      }
-    },
-    {
-      name: 'hr',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: './tests/auth/hr.json'
-      }
-    }
+    // {
+    //   name: 'supervisor',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     storageState: './tests/auth/supervisor.json'
+    //   }
+    // },
+    // {
+    //   name: 'director',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     storageState: './tests/auth/director.json'
+    //   }
+    // },
+    // {
+    //   name: 'hr',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     storageState: './tests/auth/hr.json'
+    //   }
+    // }
 
     // {
     //   name: 'firefox',
