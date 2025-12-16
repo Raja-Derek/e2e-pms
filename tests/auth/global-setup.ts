@@ -13,7 +13,14 @@ async function createStorageState(roleName: string, email: string, password: str
   page.on('pageerror', err => console.log(`[pageerror][${roleName}] ${err.message}`));
   page.on('requestfailed', req => console.log(`[requestfailed][${roleName}] ${req.url()} ${req.failure()?.errorText || ''}`));
 
-  await page.goto(TEST_DATA.baseUrl);
+  // Validate base URL before navigation. TEST_DATA.baseUrl should be defined via env (.env or CI secrets).
+  const baseUrl = TEST_DATA.baseUrl;
+  if (!baseUrl) {
+    throw new Error('BASE_URL is not defined. Please set BASE_URL environment variable (or BASE_URL in .env for local development).');
+  }
+  const finalBaseUrl = baseUrl.startsWith('http') ? baseUrl : `http://${baseUrl}`;
+  console.log(`🔎 Navigating to: ${finalBaseUrl}`);
+  await page.goto(finalBaseUrl);
   await page.fill(SELECTORS.emailInput, email);
   await page.fill(SELECTORS.passwordInput, password);
   await page.click(SELECTORS.loginButton);
