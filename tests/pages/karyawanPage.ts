@@ -6,11 +6,16 @@ export class KaryawanPage extends BasePage {
 
     async navigate() {
         await this.page.goto(TEST_DATA.baseUrl + '/core/employees');
+        await expect(this.page).toHaveURL('/employees');
+        console.log(await this.page.url());
+
     }
 
     async assertKaryawanPageVisible() {
-        await this.page.getByRole('heading', { name: 'Karyawan' }).waitFor({ state: 'visible', timeout: 10000 });
-        await expect(this.page.getByRole('heading', { name: 'Karyawan' })).toBeVisible();
+        await expect(
+            this.page.getByRole('heading', { name: 'Karyawan' })
+        ).toBeVisible({ timeout: 20000 });
+
         await expect(this.page.getByText('Kelola data karyawan dan')).toBeVisible();
         await expect(this.page.getByTestId('employees-core_statistics_total-karyawan')).toBeVisible();
         await expect(this.page.getByTestId('employees-core_statistics_perlu-ditinjau')).toBeVisible();

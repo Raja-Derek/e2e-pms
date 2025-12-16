@@ -40,17 +40,37 @@ jobs:
 
       - name: Run Playwright tests
         env:
-          BASE_URL: ${{ vars.BASE_URL }}
-          SUPERVISOR_EMAIL: ${{ vars.SUPERVISOR_EMAIL }}
-          SUPERVISOR_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
-          DIRUT_EMAIL: ${{ vars.DIRUT_EMAIL }}
-          DIRUT_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
-          HR_EMAIL: ${{ vars.HR_EMAIL }}
-          HR_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          SUPERVISOR_EMAIL: ${{ secrets.SUPERVISOR_EMAIL }}
+          SUPERVISOR_PASSWORD: ${{ secrets.SUPERVISOR_PASSWORD }}
+          DIRUT_EMAIL: ${{ secrets.DIRUT_EMAIL }}
+          DIRUT_PASSWORD: ${{ secrets.DIRUT_PASSWORD }}
+          HR_EMAIL: ${{ secrets.HR_EMAIL }}
+          HR_PASSWORD: ${{ secrets.HR_PASSWORD }}
           QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
-          QASE_PROJECT_CODE: ${{ vars.QASE_PROJECT_CODE }}
+          QASE_PROJECT_CODE: ${{ secrets.QASE_PROJECT_CODE }}
 
         run: npx playwright test
+
+      - name: Package Playwright artifacts (report + traces)
+        if: always()
+        run: |
+          set -eux
+          # create a zip containing the Playwright report and any test-results
+          rm -f playwright-artifacts.zip || true
+          if [ -d playwright-report ]; then
+            zip -r playwright-artifacts.zip playwright-report || true
+          fi
+          if [ -d test-results ]; then
+            zip -r playwright-artifacts.zip test-results || true
+          fi
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: playwright-artifacts.zip
 
       - name: Upload Playwright report
         if: always()

@@ -8,6 +8,11 @@ async function createStorageState(roleName: string, email: string, password: str
   const browser = await chromium.launch();
   const page = await browser.newPage();
 
+  // Attach listeners to capture client-side errors and console output (useful in CI logs)
+  page.on('console', msg => console.log(`[console][${roleName}] ${msg.type()}: ${msg.text()}`));
+  page.on('pageerror', err => console.log(`[pageerror][${roleName}] ${err.message}`));
+  page.on('requestfailed', req => console.log(`[requestfailed][${roleName}] ${req.url()} ${req.failure()?.errorText || ''}`));
+
   await page.goto(TEST_DATA.baseUrl);
   await page.fill(SELECTORS.emailInput, email);
   await page.fill(SELECTORS.passwordInput, password);
