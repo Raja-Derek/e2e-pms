@@ -9,7 +9,7 @@ on:
 jobs:
   playwright:
     runs-on: ubuntu-latest
-    environtment: Stage
+    environment: Stage
 
     steps:
       - name: Checkout repository
