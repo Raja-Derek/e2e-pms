@@ -49,4 +49,14 @@ test.describe('HR Karyawan Menu Tests', () => {
         // await karyawanPageHR.assertEvaluasiPerforma();
     })
 
+    test('[HR] can not provide additional assesment', async ({ karyawanPageHR }) => {
+        qase.id(750)
+
+        await karyawanPageHR.navigate();
+
+        await karyawanPageHR.chooseKaryawan('TESTER2');
+        await karyawanPageHR.assertEvaluasiAspekDisable();
+
+    })
+
 })

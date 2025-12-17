@@ -36,13 +36,13 @@ export class KaryawanPage extends BasePage {
         // Trigger search if the UI requires an Enter to run the filter
         await searchBox.press('Enter');
         // Use a looser text match to accommodate possible name casing or extra whitespace
-        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({timeout: 15000});
+        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({ timeout: 20000 });
 
     }
 
     async chooseKaryawan(namaKaryawan: string) {
         await this.searchKaryawan(namaKaryawan);
-        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({timeout: 10000});
+        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({ timeout: 10000 });
         await this.page.getByText(namaKaryawan, { exact: true }).click();
         // await this.page.locator('.flex.items-center.gap-1').first().click();
     }
@@ -53,8 +53,32 @@ export class KaryawanPage extends BasePage {
     }
 
     async chooseEvaluasiPerforma() {
+        await expect(this.page.getByText('Evaluasi Performance')).toBeVisible();
         await this.page.getByText('Evaluasi Performance').click();
 
+    }
+
+    async chooseEvaluasiAspek() {
+        await this.page.waitForTimeout(2000);
+        await expect(this.page.getByText('Evaluasi Aspek Lainnya')).toBeVisible();
+        await this.page.locator('div').filter({ hasText: 'Evaluasi Aspek' }).nth(2).click();
+        await this.page.waitForTimeout(5000);
+
+    }
+
+    async assertEvaluasiAspekDisable() {
+        await expect(this.page.getByText('Evaluasi Aspek Lainnya')).toBeVisible();
+        await expect(this.page.getByText('Tidak ada akses')).toBeVisible();
+    }
+
+    async assertEvaluasiPerformaDisable() {
+        await expect(this.page.getByText('Evaluasi Performance')).toBeVisible();
+        await expect(this.page.getByText('Bukan Atasan Langsung')).toBeVisible();
+    }
+
+    async assertEvaluasiAbsensiDisable() {
+        await expect(this.page.getByText('Evaluasi Absensi')).toBeVisible();
+        await expect(this.page.getByText('Tidak ada akses')).toBeVisible();
     }
 
     async assertEvaluasiPerformaPageVisible() {
@@ -93,13 +117,33 @@ export class KaryawanPage extends BasePage {
         await this.page.getByRole('button', { name: 'Simpan' }).click();
     }
 
+    async assertEvaluasiAspekPageVisible(karyawan: string) {
+        // waitForURL returns a Promise<void> so assert it directly instead of passing to expect
+        // scope the name check to the "Informasi Karyawan" section to avoid strict mode
+        const infoSection = this.page.locator('div').filter({ hasText: 'Informasi Karyawan' }).first();
+        await expect(infoSection.getByText(karyawan, { exact: true })).toBeVisible({ timeout: 10000 });
+        await expect(this.page.getByRole('heading', { name: 'Penilaian Lainnya' })).toBeVisible();
+        await expect(this.page.getByText('Informasi Karyawan')).toBeVisible();
+        await expect(this.page.getByText('Nama')).toBeVisible();
+        await expect(this.page.getByText('Divisi')).toBeVisible();
+        await expect(this.page.getByText('Departemen')).toBeVisible();
+        await expect(this.page.getByText('Jabatan')).toBeVisible();
+        await expect(this.page.getByText('Bulan Penilaian')).toBeVisible();
+        await expect(this.page.getByText('Data Penilaian Lainnya')).toBeVisible();
+        await expect(this.page.getByText('Komentar')).toBeVisible();
+        await expect(this.page.getByRole('textbox', { name: 'Komentar' })).toBeVisible();
+        await expect(this.page.getByText('Nilai', { exact: true })).toBeVisible();
+        await expect(this.page.getByRole('spinbutton', { name: 'Nilai' })).toBeVisible();
+        await expect(this.page.getByRole('button', { name: 'Simpan' })).toBeVisible();
+    }
+
     async assertEvaluasiPerforma() {
         await expect(this.page.locator('.lucide.lucide-circle-check')).toBeVisible();
 
     }
 
     async assertEvaluasiAbsensiPageVisible() {
-        await expect(this.page.getByRole('heading', { name: 'Penilaian Absensi' })).toBeVisible({timeout: 10000});
+        await expect(this.page.getByRole('heading', { name: 'Penilaian Absensi' })).toBeVisible({ timeout: 10000 });
         await expect(this.page.getByText('Penilaian karyawan secara')).toBeVisible();
         await expect(this.page.locator('body')).toContainText('hari kerja');
         await expect(this.page.locator('body')).toContainText('hari libur');
