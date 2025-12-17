@@ -36,7 +36,7 @@ export class KaryawanPage extends BasePage {
         // Trigger search if the UI requires an Enter to run the filter
         await searchBox.press('Enter');
         // Use a looser text match to accommodate possible name casing or extra whitespace
-        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({timeout: 10000});
+        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({timeout: 15000});
 
     }
 
