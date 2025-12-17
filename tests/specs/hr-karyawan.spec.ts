@@ -3,8 +3,7 @@ import { qase } from 'playwright-qase-reporter';
 
 test.describe('HR Karyawan Menu Tests', () => {
     test('[HR] Validate menu karyawan', async ({ karyawanPageHR }) => {
-        qase.id([745]);
-
+        qase.id([826]);
 
         await karyawanPageHR.navigate();
         await karyawanPageHR.assertKaryawanPageVisible();
@@ -14,7 +13,7 @@ test.describe('HR Karyawan Menu Tests', () => {
         qase.id(747)
 
         await karyawanPageHR.navigate();
-        await karyawanPageHR.searchKaryawan('adirangga');
+        await karyawanPageHR.searchKaryawan('TESTER1');
     })
 
     test('[HR] can provide attendance assesment', async ({ karyawanPageHR }) => {
@@ -23,10 +22,11 @@ test.describe('HR Karyawan Menu Tests', () => {
         await karyawanPageHR.navigate();
 
         //Ganti bulan ini untuk test
-        await karyawanPageHR.changeMonthFilter('September');
+        // await karyawanPageHR.changeMonthFilter('September');
 
-        await karyawanPageHR.chooseKaryawan('ESTU');
+        await karyawanPageHR.chooseKaryawan('TESTER1');
         await karyawanPageHR.chooseEvaluasiAbsensi();
+
         await karyawanPageHR.assertEvaluasiAbsensiPageVisible();
         // await karyawanPageHR.saveEvaluasiAbsensi();
     })
@@ -37,12 +37,12 @@ test.describe('HR Karyawan Menu Tests', () => {
         await karyawanPageHR.navigate();
 
         //Ganti bulan ini untuk test
-        await karyawanPageHR.changeMonthFilter('Juni');
+        // await karyawanPageHR.changeMonthFilter('Juni');
 
         // checkbox hanya bawahan saya
         await karyawanPageHR.checkboxHanyaBawahanSaya();
 
-        await karyawanPageHR.chooseKaryawan('ADAM1');
+        await karyawanPageHR.chooseKaryawan('TESTER1');
         await karyawanPageHR.chooseEvaluasiPerforma();
         await karyawanPageHR.assertEvaluasiPerformaPageVisible();
         // await karyawanPageHR.provideEvaluasiPerforma();

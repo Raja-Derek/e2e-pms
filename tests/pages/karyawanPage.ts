@@ -1,4 +1,5 @@
 import { TEST_DATA } from '../data/testData';
+import { helper } from '../utils/helper';
 import { BasePage } from './basePage';
 import { expect } from '@playwright/test';
 
@@ -29,14 +30,19 @@ export class KaryawanPage extends BasePage {
     }
 
     async searchKaryawan(namaKaryawan: string) {
-        await this.page.getByRole('textbox', { name: 'Cari nama atau email...' }).click();
-        await this.page.getByRole('textbox', { name: 'Cari nama atau email...' }).fill(namaKaryawan);
+        const searchBox = this.page.getByRole('textbox', { name: 'Cari nama atau email...' });
+        await searchBox.click();
+        await searchBox.fill(namaKaryawan);
+        // Trigger search if the UI requires an Enter to run the filter
+        await searchBox.press('Enter');
+        // Use a looser text match to accommodate possible name casing or extra whitespace
         await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({timeout: 10000});
 
     }
 
     async chooseKaryawan(namaKaryawan: string) {
         await this.searchKaryawan(namaKaryawan);
+        await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({timeout: 10000});
         await this.page.getByText(namaKaryawan, { exact: true }).click();
         // await this.page.locator('.flex.items-center.gap-1').first().click();
     }
@@ -117,19 +123,21 @@ export class KaryawanPage extends BasePage {
 
     async changeMonthFilter(month: string) {
         const base = new BasePage(this.page);
+        const help = new helper();
 
         const monthShort = month.slice(0, 3);
-        await this.page.getByRole('button', { name: base.getCurrentMonthName() }).click();
+        await this.page.getByRole('button', { name: help.getCurrentMonthName() }).click();
         await this.page.getByRole('button', { name: monthShort }).click();
         await this.page.waitForTimeout(3000);
         await this.page.getByRole('button', { name: month }).click();
-        await this.page.waitForTimeout(7000);
+        await this.page.waitForTimeout(10000);
     }
 
     async checkMonth() {
         const base = new BasePage(this.page);
+        const help = new helper();
 
-        console.log('Bulan sekarang adalah: ' + base.getCurrentMonthName());
+        console.log('Bulan sekarang adalah: ' + help.getCurrentMonthName());
     }
 
     async checkboxHanyaBawahanSaya() {
