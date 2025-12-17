@@ -39,7 +39,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Cleanup old Qase runs
-        run: node tests/utils/qase-cleanup.js
+        run: node tests/utils/qase-cleanup.mjs
         env:
           QASE_PROJECT_CODE: ${{ vars.QASE_PROJECT_CODE }}
           QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
