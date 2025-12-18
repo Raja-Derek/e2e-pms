@@ -30,6 +30,13 @@ export class LoginPage {
     // await expect(this.page.locator(SELECTORS.notifLogin)).toContainText(TEST_DATA.notifLogin);
   }
 
+  async logout(karyawanName: string) {
+    await this.page.getByRole('button', { name: karyawanName }).click();
+    await this.page.getByRole('button', { name: 'Keluar' }).click();
+    await expect(this.page.getByTestId('sign-in_email-input')).toBeVisible();
+    await expect(this.page.getByTestId('sign-in_password-input')).toBeVisible();
+  }
+
   async login(email: string, password: string) {
     await this.navigate();
     await this.enterEmail(email);

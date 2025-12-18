@@ -3,7 +3,7 @@ import { LoginPage } from '../pages/loginPage';
 import { TEST_DATA } from '../data/testData';
 import { qase } from 'playwright-qase-reporter';
 
-test.skip('Login Tests (Manual)', () => {
+test.describe('Login Tests', () => {
   test('[Supervisor] login to platform', async ({ page }) => {
     qase.id(733);
     const loginPage = new LoginPage(page);
@@ -20,20 +20,11 @@ test.skip('Login Tests (Manual)', () => {
     await loginPage.assertDashboardVisible();
   });
 
-  test.describe.serial('[HR] Login Flow', () => {
-    test('[HR] login to platform', async ({ page }) => {
-      qase.id(745);
+  test('[HR] login to platform', async ({ page }) => {
+    qase.id(745);
 
-      const loginPage = new LoginPage(page);
-      await loginPage.login(TEST_DATA.hrEmail, TEST_DATA.hrPassword);
-      await loginPage.assertDashboardVisible();
-    });
-
-    test('Logout from platform', async ({ page }) => {
-      qase.id(775);
-      const loginPage = new LoginPage(page);
-
-      await loginPage.assertDashboardVisible();
-    });
+    const loginPage = new LoginPage(page);
+    await loginPage.login(TEST_DATA.hrEmail, TEST_DATA.hrPassword);
+    await loginPage.assertDashboardVisible();
   });
 });

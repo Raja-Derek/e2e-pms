@@ -30,6 +30,7 @@ export class KaryawanPage extends BasePage {
     }
 
     async searchKaryawan(namaKaryawan: string) {
+        await this.page.waitForTimeout(5000);
         const searchBox = this.page.getByRole('textbox', { name: 'Cari nama atau email...' });
         await searchBox.click();
         await searchBox.fill(namaKaryawan);
@@ -37,6 +38,7 @@ export class KaryawanPage extends BasePage {
         await searchBox.press('Enter');
         // Use a looser text match to accommodate possible name casing or extra whitespace
         await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({ timeout: 20000 });
+        await this.page.waitForTimeout(3000);
     }
 
     async chooseKaryawan(namaKaryawan: string) {
@@ -49,13 +51,13 @@ export class KaryawanPage extends BasePage {
 
     async chooseEvaluasiAbsensi() {
         await this.page.locator('div').filter({ hasText: /^Evaluasi Absensi$/ }).click();
-
+        await this.page.waitForTimeout(5000);
     }
 
     async chooseEvaluasiPerforma() {
         await expect(this.page.getByText('Evaluasi Performance')).toBeVisible();
         await this.page.getByText('Evaluasi Performance').click();
-
+        await this.page.waitForTimeout(5000);
     }
 
     async chooseEvaluasiAspek() {
@@ -63,7 +65,6 @@ export class KaryawanPage extends BasePage {
         await expect(this.page.getByText('Evaluasi Aspek Lainnya')).toBeVisible();
         await this.page.locator('div').filter({ hasText: 'Evaluasi Aspek' }).nth(2).click();
         await this.page.waitForTimeout(5000);
-
     }
 
     async assertEvaluasiAspekDisable() {
