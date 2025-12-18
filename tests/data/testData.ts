@@ -11,6 +11,8 @@ export const TEST_DATA = {
   dirutPassword: process.env.DIRUT_PASSWORD || '',
   hrEmail: process.env.HR_EMAIL || '',
   hrPassword: process.env.HR_PASSWORD || '',
+  adminEmail: process.env.ADMIN_EMAIL || '',
+  adminPassword: process.env.ADMIN_PASSWORD || '',
   baseUrl: process.env.BASE_URL || '',
   notifLogin: 'Berhasil login' // ubah sesuai pesan notifikasi yang diharapkan
 };

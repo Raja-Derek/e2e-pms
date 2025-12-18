@@ -2,42 +2,42 @@ import { test } from '../fixtures/roles';
 import { qase } from 'playwright-qase-reporter';
 
 test.describe('Director Karyawan Menu Tests', () => {
-    test('[Director] can see their employee', async ({ karyawanPageDirector }) => {
+    test('[Director] can see their employee', async ({ cookiesDirector }) => {
         qase.id(751)
 
-        await karyawanPageDirector.navigate();
-        await karyawanPageDirector.searchKaryawan('TESTER2');
+        await cookiesDirector.navigate();
+        await cookiesDirector.searchKaryawan('TESTER2');
     })
 
-    test('[Director] can provide assesment employee', async ({ karyawanPageDirector }) => {
+    test('[Director] can provide assesment employee', async ({ cookiesDirector }) => {
         qase.id(752)
 
-        await karyawanPageDirector.navigate();
+        await cookiesDirector.navigate();
 
         // checkbox hanya bawahan saya
-        await karyawanPageDirector.checkboxHanyaBawahanSaya();
+        await cookiesDirector.checkboxHanyaBawahanSaya();
 
-        await karyawanPageDirector.chooseKaryawan('TESTER2');
-        await karyawanPageDirector.chooseEvaluasiPerforma();
-        await karyawanPageDirector.assertEvaluasiPerformaPageVisible();
+        await cookiesDirector.chooseKaryawan('TESTER2');
+        await cookiesDirector.chooseEvaluasiPerforma();
+        await cookiesDirector.assertEvaluasiPerformaPageVisible();
     })
 
-    test('[Director] can not provide attendance assesment', async ({ karyawanPageDirector }) => {
+    test('[Director] can not provide attendance assesment', async ({ cookiesDirector }) => {
         qase.id(753)
 
-        await karyawanPageDirector.navigate();
-        await karyawanPageDirector.chooseKaryawan('TESTER2');
-        await karyawanPageDirector.assertEvaluasiAbsensiDisable();
+        await cookiesDirector.navigate();
+        await cookiesDirector.chooseKaryawan('TESTER2');
+        await cookiesDirector.assertEvaluasiAbsensiDisable();
     })
 
-    test('[Director] can provide additional assesment', async ({ karyawanPageDirector }) => {
+    test('[Director] can provide additional assesment', async ({ cookiesDirector }) => {
         qase.id(754)
 
-        await karyawanPageDirector.navigate();
+        await cookiesDirector.navigate();
 
-        await karyawanPageDirector.chooseKaryawan('TESTER2');
-        await karyawanPageDirector.chooseEvaluasiAspek();
-        await karyawanPageDirector.assertEvaluasiAspekPageVisible('TESTER2');
+        await cookiesDirector.chooseKaryawan('TESTER2');
+        await cookiesDirector.chooseEvaluasiAspek();
+        await cookiesDirector.assertEvaluasiAspekPageVisible('TESTER2');
 
     })
 

@@ -2,60 +2,60 @@ import { test } from '../fixtures/roles';
 import { qase } from 'playwright-qase-reporter';
 
 test.describe('HR Karyawan Menu Tests', () => {
-    test('[HR] Validate menu karyawan', async ({ karyawanPageHR }) => {
+    test('[HR] Validate menu karyawan', async ({ cookiesHR }) => {
         qase.id([826]);
 
-        await karyawanPageHR.navigate();
-        await karyawanPageHR.assertKaryawanPageVisible();
+        await cookiesHR.navigate();
+        await cookiesHR.assertKaryawanPageVisible();
     });
 
-    test('[HR] can see their employee', async ({ karyawanPageHR }) => {
+    test('[HR] can see their employee', async ({ cookiesHR }) => {
         qase.id(747)
 
-        await karyawanPageHR.navigate();
-        await karyawanPageHR.searchKaryawan('TESTER1');
+        await cookiesHR.navigate();
+        await cookiesHR.searchKaryawan('TESTER1');
     })
 
-    test('[HR] can provide attendance assesment', async ({ karyawanPageHR }) => {
+    test('[HR] can provide attendance assesment', async ({ cookiesHR }) => {
         qase.id(749)
 
-        await karyawanPageHR.navigate();
+        await cookiesHR.navigate();
 
         //Ganti bulan ini untuk test
-        // await karyawanPageHR.changeMonthFilter('September');
+        // await cookiesHR.changeMonthFilter('September');
 
-        await karyawanPageHR.chooseKaryawan('TESTER1');
-        await karyawanPageHR.chooseEvaluasiAbsensi();
+        await cookiesHR.chooseKaryawan('TESTER1');
+        await cookiesHR.chooseEvaluasiAbsensi();
 
-        await karyawanPageHR.assertEvaluasiAbsensiPageVisible();
-        // await karyawanPageHR.saveEvaluasiAbsensi();
+        await cookiesHR.assertEvaluasiAbsensiPageVisible();
+        // await cookiesHR.saveEvaluasiAbsensi();
     })
 
-    test('[HR] can provide assesment employee', async ({ karyawanPageHR }) => {
+    test('[HR] can provide assesment employee', async ({ cookiesHR }) => {
         qase.id(748)
 
-        await karyawanPageHR.navigate();
+        await cookiesHR.navigate();
 
         //Ganti bulan ini untuk test
-        // await karyawanPageHR.changeMonthFilter('Juni');
+        // await cookiesHR.changeMonthFilter('Juni');
 
         // checkbox hanya bawahan saya
-        await karyawanPageHR.checkboxHanyaBawahanSaya();
+        await cookiesHR.checkboxHanyaBawahanSaya();
 
-        await karyawanPageHR.chooseKaryawan('TESTER1');
-        await karyawanPageHR.chooseEvaluasiPerforma();
-        await karyawanPageHR.assertEvaluasiPerformaPageVisible();
-        // await karyawanPageHR.provideEvaluasiPerforma();
-        // await karyawanPageHR.assertEvaluasiPerforma();
+        await cookiesHR.chooseKaryawan('TESTER1');
+        await cookiesHR.chooseEvaluasiPerforma();
+        await cookiesHR.assertEvaluasiPerformaPageVisible();
+        // await cookiesHR.provideEvaluasiPerforma();
+        // await cookiesHR.assertEvaluasiPerforma();
     })
 
-    test('[HR] can not provide additional assesment', async ({ karyawanPageHR }) => {
+    test('[HR] can not provide additional assesment', async ({ cookiesHR }) => {
         qase.id(750)
 
-        await karyawanPageHR.navigate();
+        await cookiesHR.navigate();
 
-        await karyawanPageHR.chooseKaryawan('TESTER2');
-        await karyawanPageHR.assertEvaluasiAspekDisable();
+        await cookiesHR.chooseKaryawan('TESTER2');
+        await cookiesHR.assertEvaluasiAspekDisable();
 
     })
 

@@ -37,14 +37,14 @@ export class KaryawanPage extends BasePage {
         await searchBox.press('Enter');
         // Use a looser text match to accommodate possible name casing or extra whitespace
         await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({ timeout: 20000 });
-
     }
 
     async chooseKaryawan(namaKaryawan: string) {
         await this.searchKaryawan(namaKaryawan);
         await expect(this.page.getByText(namaKaryawan, { exact: true })).toBeVisible({ timeout: 10000 });
         await this.page.getByText(namaKaryawan, { exact: true }).click();
-        // await this.page.locator('.flex.items-center.gap-1').first().click();
+        await expect(this.page.getByText('Pilih Jenis Penilaian', { exact: true })).toBeVisible({ timeout: 20000 });
+
     }
 
     async chooseEvaluasiAbsensi() {
@@ -68,7 +68,7 @@ export class KaryawanPage extends BasePage {
 
     async assertEvaluasiAspekDisable() {
         await expect(this.page.getByText('Evaluasi Aspek Lainnya')).toBeVisible();
-        await expect(this.page.getByText('Tidak ada akses')).toBeVisible();
+        await expect(this.page.getByText('Evaluasi Aspek LainnyaPenilaian aspek tambahan lainnyaBelum DinilaiTidak ada')).toBeVisible();
     }
 
     async assertEvaluasiPerformaDisable() {
@@ -78,7 +78,7 @@ export class KaryawanPage extends BasePage {
 
     async assertEvaluasiAbsensiDisable() {
         await expect(this.page.getByText('Evaluasi Absensi')).toBeVisible();
-        await expect(this.page.getByText('Tidak ada akses')).toBeVisible();
+        await expect(this.page.getByText('Evaluasi AbsensiPenilaian kehadiran dan absensiBelum DinilaiTidak ada akses')).toBeVisible();
     }
 
     async assertEvaluasiPerformaPageVisible() {
@@ -88,6 +88,8 @@ export class KaryawanPage extends BasePage {
         await expect(this.page.getByRole('heading', { name: 'Professional Skill' })).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Kepribadian' })).toBeVisible();
         await expect(this.page.getByRole('button', { name: 'Simpan' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Managerial Skill' })).toBeVisible();
+
     }
 
     async provideEvaluasiPerforma() {
@@ -113,8 +115,16 @@ export class KaryawanPage extends BasePage {
         await this.page.locator('div:nth-child(12) > .flex > button').first().click();
         await this.page.locator('div:nth-child(13) > .flex > button').first().click();
         await this.page.locator('div:nth-child(14) > .flex > button').first().click();
+        await this.simpanEvaluasiPerforma();
+    }
+
+    async simpanEvaluasiPerforma() {
         await this.page.getByRole('button', { name: 'Simpan' }).click();
         await this.page.getByRole('button', { name: 'Simpan' }).click();
+    }
+
+    async assertBelumMengisiSemuaAspek() {
+        await expect(this.page.getByText('Anda belum mengisi semua aspek')).toBeVisible();
     }
 
     async assertEvaluasiAspekPageVisible(karyawan: string) {

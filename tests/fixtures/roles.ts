@@ -1,47 +1,36 @@
 import { test as base, Page } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
 import { KaryawanPage } from '../pages/karyawanPage';
 
 export const test = base.extend<{
-    supervisorPage: Page;
-    directorPage: Page;
-    hrPage: Page;
-    loginPage: LoginPage;
-    karyawanPageHR: KaryawanPage;
-    karyawanPageSupervisor: KaryawanPage;
-    karyawanPageDirector: KaryawanPage;
+    _createAuth: undefined;
+    cookiesHR: KaryawanPage;
+    cookiesSupervisor: KaryawanPage;
+    cookiesDirector: KaryawanPage;
 }>({
-    supervisorPage: async ({ browser }, use) => {
+    // small helper to create an authenticated page from a storage state file
+    _createAuth: [async ({ browser }, use) => {
+        // placeholder fixture, not exposed — used below via browser param
+        await use(undefined);
+    }, { auto: true }],
+
+    cookiesSupervisor: async ({ browser }, use) => {
         const context = await browser.newContext({ storageState: './tests/auth/supervisor.json' });
         const page = await context.newPage();
-        await use(page);
+        await use(new KaryawanPage(page));
         await context.close();
     },
-    karyawanPageSupervisor: async ({ supervisorPage }, use) => {
-        const pageObj = new KaryawanPage(supervisorPage);
-        await use(pageObj);
-    },
-    
 
-    directorPage: async ({ browser }, use) => {
+    cookiesDirector: async ({ browser }, use) => {
         const context = await browser.newContext({ storageState: './tests/auth/director.json' });
         const page = await context.newPage();
-        await use(page);
+        await use(new KaryawanPage(page));
         await context.close();
-    },
-    karyawanPageDirector: async ({ directorPage }, use) => {
-        const pageObj = new KaryawanPage(directorPage);
-        await use(pageObj);
     },
 
-    hrPage: async ({ browser }, use) => {
+    cookiesHR: async ({ browser }, use) => {
         const context = await browser.newContext({ storageState: './tests/auth/hr.json' });
         const page = await context.newPage();
-        await use(page);
+        await use(new KaryawanPage(page));
         await context.close();
-    },
-    karyawanPageHR: async ({ hrPage }, use) => {
-        const pageObj = new KaryawanPage(hrPage);
-        await use(pageObj);
-    },
+    }
 });

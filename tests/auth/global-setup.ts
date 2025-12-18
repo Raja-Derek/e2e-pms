@@ -58,6 +58,7 @@ async function globalSetup() {
   await createStorageState('supervisor', TEST_DATA.supervisorEmail, TEST_DATA.supervisorPassword);
   await createStorageState('director', TEST_DATA.dirutEmail, TEST_DATA.dirutPassword);
   await createStorageState('hr', TEST_DATA.hrEmail, TEST_DATA.hrPassword);
+  await createStorageState('admin', TEST_DATA.adminEmail, TEST_DATA.adminPassword);
 
   console.log('🏁 All sessions generated!');
 }
