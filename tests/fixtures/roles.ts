@@ -1,12 +1,13 @@
 import { test as base, Page } from '@playwright/test';
 import { KaryawanPage } from '../pages/karyawanPage';
+import { AspekPage } from '../pages/aspekPage';
 
 export const test = base.extend<{
     _createAuth: undefined;
     cookiesHR: KaryawanPage;
     cookiesSupervisor: KaryawanPage;
     cookiesDirector: KaryawanPage;
-    cookiesAdmin: KaryawanPage;
+    cookiesAdmin: AspekPage;
 }>({
     // small helper to create an authenticated page from a storage state file
     _createAuth: [async ({ browser }, use) => {
@@ -38,7 +39,7 @@ export const test = base.extend<{
     cookiesAdmin: async ({ browser }, use) => {
         const context = await browser.newContext({ storageState: './tests/auth/admin.json' });
         const page = await context.newPage();
-        await use(new KaryawanPage(page));
+        await use(new AspekPage(page));
         await context.close();
     }
 });
