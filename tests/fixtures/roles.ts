@@ -1,13 +1,15 @@
 import { test as base, Page } from '@playwright/test';
 import { KaryawanPage } from '../pages/karyawanPage';
 import { AspekPage } from '../pages/aspekPage';
+import { ProfilePage } from '../pages/profilePage';
+import { PenggunaPage } from '../pages/penggunaPage';
 
 export const test = base.extend<{
     _createAuth: undefined;
     cookiesHR: KaryawanPage;
     cookiesSupervisor: KaryawanPage;
     cookiesDirector: KaryawanPage;
-    cookiesAdmin: AspekPage;
+    cookiesAdmin: AspekPage & ProfilePage & PenggunaPage;
 }>({
     // small helper to create an authenticated page from a storage state file
     _createAuth: [async ({ browser }, use) => {
@@ -39,7 +41,25 @@ export const test = base.extend<{
     cookiesAdmin: async ({ browser }, use) => {
         const context = await browser.newContext({ storageState: './tests/auth/admin.json' });
         const page = await context.newPage();
-        await use(new AspekPage(page));
+
+        const aspek = new AspekPage(page);
+        const profile = new ProfilePage(page);
+        const pengguna = new PenggunaPage(page);
+
+        const combined = new Proxy(aspek as unknown as AspekPage & ProfilePage & PenggunaPage, {
+            get(target, prop, receiver) {
+                if (prop in target) {
+                    return Reflect.get(target, prop, receiver);
+                }
+                const value = (profile as any)[prop as keyof ProfilePage];
+                if (typeof value === 'function') {
+                    return (value as Function).bind(profile);
+                }
+                return value;
+            }
+        });
+
+        await use(combined);
         await context.close();
     }
 });

@@ -5,7 +5,7 @@ import { expect } from '@playwright/test';
 
 export class AspekPage extends BasePage {
 
-    async navigate() {
+    async navigateAspekPenilaian() {
         await this.page.goto(TEST_DATA.baseUrl + '/core/performance-aspect');
         console.log(await this.page.url());
     }
