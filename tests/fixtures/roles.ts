@@ -6,6 +6,7 @@ export const test = base.extend<{
     cookiesHR: KaryawanPage;
     cookiesSupervisor: KaryawanPage;
     cookiesDirector: KaryawanPage;
+    cookiesAdmin: KaryawanPage;
 }>({
     // small helper to create an authenticated page from a storage state file
     _createAuth: [async ({ browser }, use) => {
@@ -29,6 +30,13 @@ export const test = base.extend<{
 
     cookiesHR: async ({ browser }, use) => {
         const context = await browser.newContext({ storageState: './tests/auth/hr.json' });
+        const page = await context.newPage();
+        await use(new KaryawanPage(page));
+        await context.close();
+    },
+
+    cookiesAdmin: async ({ browser }, use) => {
+        const context = await browser.newContext({ storageState: './tests/auth/admin.json' });
         const page = await context.newPage();
         await use(new KaryawanPage(page));
         await context.close();

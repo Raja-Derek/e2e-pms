@@ -83,7 +83,7 @@ export class KaryawanPage extends BasePage {
     }
 
     async assertEvaluasiPerformaPageVisible() {
-        await expect(this.page.getByRole('heading', { name: 'Penilaian Performa' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Penilaian Performa' })).toBeVisible({timeout: 10000});
         await expect(this.page.getByText('Penilaian karyawan secara')).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Managerial Skill' })).toBeVisible();
         await expect(this.page.getByRole('heading', { name: 'Professional Skill' })).toBeVisible();
