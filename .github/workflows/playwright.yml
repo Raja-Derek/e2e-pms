@@ -8,6 +8,9 @@ on:
   repository_dispatch:
     types: [web-updated]
 
+permissions:
+  contents: write
+
 jobs:
   playwright:
     runs-on: ubuntu-latest
@@ -63,6 +66,7 @@ jobs:
         run: npx playwright test
       
       - name: Generate Allure Report
+        if: always()
         run: |
           npm install -g allure-commandline
           allure generate allure-results --clean -o allure-report
