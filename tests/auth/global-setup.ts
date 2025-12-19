@@ -31,13 +31,14 @@ async function createStorageState(roleName: string, email: string, password: str
   } catch (err) {
     console.warn(`[${roleName}] Navigation to ${finalBaseUrl} failed: ${err}`);
   }
-  await page.waitForTimeout(5000); // wait for 5 seconds to ensure the page is fully loaded
+  await page.waitForTimeout(3000); // wait for 5 seconds to ensure the page is fully loaded
 
   // Perform login
   console.log(`🔐 Logging in as ${roleName} (${email})`);
   await page.fill(SELECTORS.emailInput, email);
   await page.fill(SELECTORS.passwordInput, password);
   await page.click(SELECTORS.loginButton);
+  await page.getByText('Berhasil login').click({timeout:20000});
 
   await page.waitForURL(/.*core/);
 
