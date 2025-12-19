@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test:all": "npx playwright test",
+    "test:aspek": "npx playwright test tests/aspekmenu",
+    "test:auth": "npx playwright test tests/authentication",
+    "test:karyawan": "npx playwright test tests/karyawanmenu",
+    "test:pengaturan": "npx playwright test tests/pengaturan"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Raja-Derek/e2e-pms.git"

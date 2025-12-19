@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
+import { AspekPage } from './tests/pages/aspekPage';
 
 if (!process.env.CI) {
   dotenv.config();
@@ -134,4 +135,15 @@ export default defineConfig({
   //   url: 'http://localhost:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+  // Optional: convenience suites grouping. These are not a CLI flag by themselves,
+  // but useful as documentation and for other tools. Prefer running suites via
+  // npm scripts that point to these folders (examples in package.json).
+  metadata: {
+    suites: {
+      AspekPage: 'tests/aspekmenu/*.spec.ts',
+      Authentication: 'tests/authentication/*.spec.ts',
+      Karyawan: 'tests/karyawanmenu/*.spec.ts',
+      Pengaturan: 'tests/pengaturan/*.spec.ts',
+    },
+  },
 });

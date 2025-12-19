@@ -1,4 +1,4 @@
-import { test } from '../fixtures/roles';
+import { test } from '../../fixtures/roles';
 import { qase } from 'playwright-qase-reporter';
 
 test.describe('Director Karyawan Menu Tests', () => {

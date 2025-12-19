@@ -26,4 +26,28 @@ export class PenggunaPage extends BasePage {
         await expect(this.page.getByRole('columnheader', { name: 'Aksi' })).toBeVisible();
         await expect(this.page.getByRole('button', { name: 'Tambah Pengguna' })).toBeVisible();
     }
+
+    async addPengguna(name: string, email: string, password: string, role: string, division: string, department: string, position: string, supervisor: string) {
+        await this.page.getByRole('button', { name: 'Tambah Pengguna' }).click();
+        await this.page.getByRole('textbox', { name: 'Nama Lengkap' }).fill(name);
+        await this.page.getByRole('textbox', { name: 'Email' }).fill(email);
+        await this.page.getByRole('textbox', { name: 'Minimal 8 karakter' }).fill(password);
+        await this.page.getByRole('combobox', { name: 'Peran' }).click();
+        await this.page.getByRole('option', { name: role }).click();
+        await this.page.getByRole('combobox', { name: 'Divisi' }).click();
+        await this.page.getByRole('option', { name: 'Semua Divisi' }).click();
+
+        await this.page.getByRole('combobox', { name: 'Departemen' }).click();
+        await this.page.getByRole('option', { name: department }).click();
+        await this.page.getByRole('combobox', { name: 'Posisi (Opsional)' }).click();
+        await this.page.getByRole('option', { name: position, exact: true }).click();
+        await this.page.getByRole('combobox', { name: 'Atasan' }).click();
+        await this.page.getByPlaceholder('Cari atasan...').fill(supervisor);
+        await this.page.getByLabel('Suggestions').getByText(supervisor, { exact: true }).click();
+        await this.page.getByRole('button', { name: 'Tambah Pengguna' }).click();
+    }
+
+    async editPengguna() {
+
+    }
 }
