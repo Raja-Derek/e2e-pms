@@ -5,6 +5,8 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+  repository_dispatch:
+    types: [web-updated]
 
 jobs:
   playwright:
@@ -60,11 +62,6 @@ jobs:
 
         run: npx playwright test
       
-      - name: Debug env
-        run: |
-          echo "BASE_URL=$BASE_URL"
-          echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
-
       - name: Package Playwright artifacts (report + traces)
         if: always()
         run: |
