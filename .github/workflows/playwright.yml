@@ -53,6 +53,8 @@ jobs:
           DIRUT_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
           HR_EMAIL: ${{ vars.HR_EMAIL }}
           HR_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+          ADMIN_EMAIL: ${{ vars.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
           QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
           QASE_PROJECT_CODE: ${{ vars.QASE_PROJECT_CODE }}
 
