@@ -8,3 +8,7 @@ node_modules/
 /playwright/.auth/
 # dotenv environment variables file
 .env
+/playwright-report
+/test-results
+/allure-results
+/allure-report
