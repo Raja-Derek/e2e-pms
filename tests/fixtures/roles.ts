@@ -46,16 +46,30 @@ export const test = base.extend<{
         const profile = new ProfilePage(page);
         const pengguna = new PenggunaPage(page);
 
+        const targets = [aspek, profile, pengguna] as const;
+
         const combined = new Proxy(aspek as unknown as AspekPage & ProfilePage & PenggunaPage, {
-            get(target, prop, receiver) {
-                if (prop in target) {
-                    return Reflect.get(target, prop, receiver);
+            get(_target, prop, _receiver) {
+                for (const obj of targets) {
+                    if (prop in obj) {
+                        const value = (obj as any)[prop as keyof typeof obj];
+                        return typeof value === 'function' ? (value as Function).bind(obj) : value;
+                    }
                 }
-                const value = (profile as any)[prop as keyof ProfilePage];
-                if (typeof value === 'function') {
-                    return (value as Function).bind(profile);
+                return undefined;
+            },
+            set(_target, prop, value) {
+                for (const obj of targets) {
+                    if (prop in obj) {
+                        (obj as any)[prop as keyof typeof obj] = value;
+                        return true;
+                    }
                 }
-                return value;
+                (aspek as any)[prop as keyof typeof aspek] = value;
+                return true;
+            },
+            has(_target, prop) {
+                return targets.some(obj => prop in obj);
             }
         });
 
