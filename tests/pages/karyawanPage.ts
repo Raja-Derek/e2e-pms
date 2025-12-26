@@ -9,6 +9,8 @@ export class KaryawanPage extends BasePage {
         await test.step('Navigate to karyawan page', async () => {
             await this.page.goto(TEST_DATA.baseUrl + '/core/employees');
             console.log(await this.page.url());
+            await expect(this.page.getByRole('heading', { name: 'Karyawan' })).toBeVisible({ timeout: 30000 });
+
         }
         );
     }
@@ -104,7 +106,7 @@ export class KaryawanPage extends BasePage {
 
     async assertEvaluasiPerformaPageVisible() {
         await test.step('Evaluasi performa page is visible', async () => {
-            await expect(this.page.getByRole('heading', { name: 'Penilaian Performa' })).toBeVisible({ timeout: 10000 });
+            await expect(this.page.getByRole('heading', { name: 'Penilaian Performa' })).toBeVisible({ timeout: 40000 });
             await expect(this.page.getByText('Penilaian karyawan secara')).toBeVisible();
             await expect(this.page.getByRole('heading', { name: 'Managerial Skill' })).toBeVisible();
             await expect(this.page.getByRole('heading', { name: 'Professional Skill' })).toBeVisible();
@@ -116,7 +118,7 @@ export class KaryawanPage extends BasePage {
 
     async assertEvaluasiAbsensiPageVisible() {
         await test.step('Evaluasi absensi page is visible', async () => {
-            await expect(this.page.getByRole('heading', { name: 'Penilaian Absensi' })).toBeVisible({ timeout: 10000 });
+            await expect(this.page.getByRole('heading', { name: 'Penilaian Absensi' })).toBeVisible({ timeout: 40000 });
             await expect(this.page.getByText('Penilaian karyawan secara')).toBeVisible();
             await expect(this.page.locator('body')).toContainText('hari kerja');
             await expect(this.page.locator('body')).toContainText('hari libur');

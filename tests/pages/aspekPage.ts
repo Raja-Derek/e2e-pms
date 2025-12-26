@@ -8,9 +8,8 @@ export class AspekPage extends BasePage {
     async navigateAspekPenilaian() {
         await test.step('Navigate to aspek penilaian page', async () => {
             await this.page.goto(TEST_DATA.baseUrl + '/core/performance-aspect');
-            await this.page.waitForLoadState('networkidle', {
-                timeout: 60_000, // 60 detik
-            });
+            await expect(this.page.getByText('Tidak ada data ditemukan')).not.toBeVisible();
+
         }
         );
     }
@@ -47,9 +46,8 @@ export class AspekPage extends BasePage {
 
     async assertAspekFounded(aspekName: string) {
         await test.step('Aspek is found', async () => {
-            await this.page.waitForResponse(res =>
-                res.url().includes('kemampuan+membuat+rencana+kerja') && res.status() === 200
-            )
+            await expect(this.page.getByText(aspekName)).toBeVisible();
+
         })
     }
 

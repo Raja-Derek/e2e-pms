@@ -49,6 +49,8 @@ export class LoginPage {
       await this.enterEmail(email);
       await this.enterPassword(password);
       await this.clickLogin();
+      await expect(this.page.getByText('Lagi cek keaslian email...', { exact: true })).not.toBeVisible({timeout: 60000});
+
     }
     );
   }

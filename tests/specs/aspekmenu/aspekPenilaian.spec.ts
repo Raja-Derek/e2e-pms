@@ -9,7 +9,7 @@ test.describe('Menu Aspek Penilaian Performa', () => {
         await adminPage.assertAspekPageVisible();
     })
 
-    test.skip('Search "Aspek" with valid data', async ({ adminPage }) => {
+    test('Search "Aspek" with valid data', async ({ adminPage }) => {
         qase.id(772)
 
         await adminPage.navigateAspekPenilaian();
