@@ -3,13 +3,14 @@ import { KaryawanPage } from '../pages/karyawanPage';
 import { AspekPage } from '../pages/aspekPage';
 import { ProfilePage } from '../pages/profilePage';
 import { PenggunaPage } from '../pages/penggunaPage';
+import { PeranPage } from '../pages/peranPage';
 
 export const test = base.extend<{
     _createAuth: undefined;
     cookiesHR: KaryawanPage;
     cookiesSupervisor: KaryawanPage;
     cookiesDirector: KaryawanPage;
-    cookiesAdmin: AspekPage & ProfilePage & PenggunaPage;
+    adminPage: AspekPage & ProfilePage & PenggunaPage & PeranPage;
 }>({
     // small helper to create an authenticated page from a storage state file
     _createAuth: [async ({ browser }, use) => {
@@ -38,17 +39,18 @@ export const test = base.extend<{
         await context.close();
     },
 
-    cookiesAdmin: async ({ browser }, use) => {
+    adminPage: async ({ browser }, use) => {
         const context = await browser.newContext({ storageState: './tests/auth/admin.json' });
         const page = await context.newPage();
 
         const aspek = new AspekPage(page);
         const profile = new ProfilePage(page);
         const pengguna = new PenggunaPage(page);
+        const peran = new PeranPage(page);
 
-        const targets = [aspek, profile, pengguna] as const;
+        const targets = [aspek, profile, pengguna, peran] as const;
 
-        const combined = new Proxy(aspek as unknown as AspekPage & ProfilePage & PenggunaPage, {
+        const combined = new Proxy(aspek as unknown as AspekPage & ProfilePage & PenggunaPage & PeranPage,{
             get(_target, prop, _receiver) {
                 for (const obj of targets) {
                     if (prop in obj) {

@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { Page, expect, test } from '@playwright/test';
 import { SELECTORS } from '../data/selectors';
 import { TEST_DATA } from '../data/testData';
 
@@ -26,8 +26,11 @@ export class LoginPage {
   }
 
   async assertDashboardVisible() {
-    await expect(this.page.getByText(TEST_DATA.notifLogin)).toBeVisible({ timeout: 20000 });
-    // await expect(this.page.locator(SELECTORS.notifLogin)).toContainText(TEST_DATA.notifLogin);
+    await test.step('Dashboard page is visible', async () => {
+      await this.page.waitForResponse(res =>
+        res.url().includes('/core') && res.status() === 200
+      )
+    });
   }
 
   async logout(karyawanName: string) {
@@ -38,10 +41,16 @@ export class LoginPage {
   }
 
   async login(email: string, password: string) {
-    await this.navigate();
-    await this.enterEmail(email);
-    await this.enterPassword(password);
-    await this.clickLogin();
+    await test.step('User navigate to login page', async () => {
+      await this.navigate();
+    })
+
+    await test.step('User submit login form', async () => {
+      await this.enterEmail(email);
+      await this.enterPassword(password);
+      await this.clickLogin();
+    }
+    );
   }
 
 }

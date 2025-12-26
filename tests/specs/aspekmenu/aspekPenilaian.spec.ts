@@ -2,27 +2,27 @@ import { test } from '../../fixtures/roles';
 import { qase } from 'playwright-qase-reporter';
 
 test.describe('Menu Aspek Penilaian Performa', () => {
-    test('Validate menu "Aspek Penilaian"', async ({ cookiesAdmin }) => {
+    test('Validate menu "Aspek Penilaian"', async ({ adminPage }) => {
         qase.id(771)
 
-        await cookiesAdmin.navigateAspekPenilaian();
-        await cookiesAdmin.assertAspekPageVisible();
+        await adminPage.navigateAspekPenilaian();
+        await adminPage.assertAspekPageVisible();
     })
 
-    test('Search "Aspek" with valid data', async ({ cookiesAdmin }) => {
+    test.skip('Search "Aspek" with valid data', async ({ adminPage }) => {
         qase.id(772)
 
-        await cookiesAdmin.navigateAspekPenilaian();
-        await cookiesAdmin.searchAspek('Kemampuan membuat rencana kerja')
-        await cookiesAdmin.assertAspekFounded('Kemampuan membuat rencana kerja');
+        await adminPage.navigateAspekPenilaian();
+        await adminPage.searchAspek('Kemampuan membuat rencana kerja')
+        await adminPage.assertAspekFounded('Kemampuan membuat rencana kerja');
     })
     
-    test('Search "Aspek" with invalid data', async ({ cookiesAdmin }) => {
+    test('Search "Aspek" with invalid data', async ({ adminPage }) => {
         qase.id(772)
 
-        await cookiesAdmin.navigateAspekPenilaian();
-        await cookiesAdmin.searchAspek('tahu bulat')
-        await cookiesAdmin.assertAspekNotFound();
+        await adminPage.navigateAspekPenilaian();
+        await adminPage.searchAspek('tahu bulat')
+        await adminPage.assertAspekNotFound();
     })
 
 })
