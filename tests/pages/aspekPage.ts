@@ -1,5 +1,4 @@
 import { TEST_DATA } from '../data/testData';
-import { helper } from '../utils/helper';
 import { BasePage } from './basePage';
 import { expect, test } from '@playwright/test';
 

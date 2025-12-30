@@ -1,24 +1,18 @@
 import { test } from '../../fixtures/roles';
-import { qase } from 'playwright-qase-reporter';
+
 
 test.describe('HR Karyawan Menu Tests', () => {
     test('[HR] Validate menu karyawan', async ({ cookiesHR }) => {
-        qase.id([826]);
-
         await cookiesHR.navigate();
         await cookiesHR.assertKaryawanPageVisible();
     });
 
     test('[HR] can see their employee', async ({ cookiesHR }) => {
-        qase.id(747)
-
         await cookiesHR.navigate();
         await cookiesHR.searchKaryawan('TESTER1');
     })
 
     test('[HR] can provide attendance assesment', async ({ cookiesHR }) => {
-        qase.id(749)
-
         await cookiesHR.navigate();
 
         //Ganti bulan ini untuk test
@@ -32,8 +26,6 @@ test.describe('HR Karyawan Menu Tests', () => {
     })
 
     test('[HR] can provide assesment employee', async ({ cookiesHR }) => {
-        qase.id(748)
-
         await cookiesHR.navigate();
 
         //Ganti bulan ini untuk test
@@ -50,8 +42,6 @@ test.describe('HR Karyawan Menu Tests', () => {
     })
 
     test('[HR] can not provide additional assesment', async ({ cookiesHR }) => {
-        qase.id(750)
-
         await cookiesHR.navigate();
 
         await cookiesHR.chooseKaryawan('TESTER2');

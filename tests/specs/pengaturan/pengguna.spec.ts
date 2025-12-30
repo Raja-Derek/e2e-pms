@@ -1,11 +1,9 @@
 import { test } from '../../fixtures/roles';
-import { qase } from 'playwright-qase-reporter';
+
 import { DATA_PENGGUNA } from '../../data/testData';
 
 test.describe.serial('Menu Pengguna', () => {
     test('Add new "pengguna"', async ({ adminPage }) => {
-        qase.id(777)
-
         await adminPage.openPenggunaPage();
         await adminPage.assertPenggunaPageVisible();
         await adminPage.addPengguna({
@@ -22,24 +20,18 @@ test.describe.serial('Menu Pengguna', () => {
     })
 
     test("Search 'pengguna' with valid data", async ({ adminPage }) => {
-        qase.id(784)
-
         await adminPage.openPenggunaPage()
         await adminPage.searchPengguna(DATA_PENGGUNA.penggunaTempe)
         await adminPage.assertPenggunaFounded(DATA_PENGGUNA.penggunaTempe)
     })
 
     test("Search 'pengguna' with invalid data", async ({ adminPage }) => {
-        qase.id(782)
-
         await adminPage.openPenggunaPage()
         await adminPage.searchPengguna("tempe kotak")
         await adminPage.assertAspekNotFound()
     })
 
     test("Edit 'Pengguna'", async ({ adminPage }) => {
-        qase.id(778)
-
         await adminPage.openPenggunaPage()
         await adminPage.searchPengguna(DATA_PENGGUNA.penggunaTempe)
         await adminPage.assertPenggunaFounded(DATA_PENGGUNA.penggunaTempe)
@@ -60,8 +52,6 @@ test.describe.serial('Menu Pengguna', () => {
     })
 
     test("Change Password 'Pengguna'", async ({adminPage}) => {
-        qase.id(779)
-
         await adminPage.openPenggunaPage()
         await adminPage.searchPengguna(DATA_PENGGUNA.penggunaTempeEdit)
         await adminPage.changePasswordPengguna()
@@ -69,8 +59,6 @@ test.describe.serial('Menu Pengguna', () => {
     })
 
     test("Delete 'Pengguna'", async ({ adminPage }) => {
-        qase.id(780)
-
         await adminPage.openPenggunaPage()
         await adminPage.searchPengguna(DATA_PENGGUNA.penggunaTempeEdit)
         await adminPage.deletePengguna(DATA_PENGGUNA.penggunaTempeEdit)

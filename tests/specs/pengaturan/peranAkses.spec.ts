@@ -1,11 +1,9 @@
 import { test } from '../../fixtures/roles';
-import { qase } from 'playwright-qase-reporter';
+
 import { DATA_PERAN } from '../../data/testData';
 
 test.describe.serial('Menu Peran & Akses', () => {
     test('Add new "peran & akses"', async ({ adminPage }) => {
-        qase.id(783)
-
         await adminPage.openPeranPage()
         await adminPage.assertPeranPageVisible();
         await adminPage.addNewPeran({
@@ -17,24 +15,18 @@ test.describe.serial('Menu Peran & Akses', () => {
     })
 
     test('Search "peran" with invalid data', async({adminPage})=>{
-        qase.id(781)
-
         await adminPage.openPeranPage()
         await adminPage.searchPeran("tahu goreng 2")
         await adminPage.assertSearchNotFound()
     })
 
     test('Search "peran" with valid data', async({adminPage})=>{
-        qase.id(781)
-
         await adminPage.openPeranPage()
         await adminPage.searchPeran(DATA_PERAN.staff)
         await adminPage.assertSearchFound(DATA_PERAN.staff)
     })
 
     test('Validate "Kelola hak akses"', async({adminPage})=>{
-        qase.id(786)
-
         await adminPage.openPeranPage()
         await adminPage.searchPeran(DATA_PERAN.staff)
         await adminPage.assertSearchFound(DATA_PERAN.staff)
@@ -42,8 +34,6 @@ test.describe.serial('Menu Peran & Akses', () => {
     })
 
     test('Validate "Edit Peran"', async({adminPage})=>{
-        qase.id(786)
-
         await adminPage.openPeranPage()
         await adminPage.searchPeran(DATA_PERAN.staff)
         await adminPage.assertSearchFound(DATA_PERAN.staff)
@@ -55,8 +45,6 @@ test.describe.serial('Menu Peran & Akses', () => {
     })
 
     test('Validate "Hapus Peran"', async({adminPage})=>{
-        qase.id(788)
-
         await adminPage.openPeranPage()
         await adminPage.searchPeran(DATA_PERAN.staff)
         await adminPage.assertSearchFound(DATA_PERAN.staff)
