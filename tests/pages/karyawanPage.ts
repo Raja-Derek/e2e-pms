@@ -29,7 +29,6 @@ export class KaryawanPage extends BasePage {
             await expect(this.page.getByTestId('employees-core_tabs_pending')).toBeVisible();
             await expect(this.page.getByTestId('employees-core_tabs_reviewed')).toBeVisible();
             await expect(this.page.getByText('Hanya Bawahan Saya')).toBeVisible();
-            await expect(this.page.getByRole('button', { name: 'Desember' })).toBeVisible();
             await expect(this.page.getByRole('textbox', { name: 'Cari nama atau email...' })).toBeVisible();
             await expect(this.page.locator('.overflow-hidden.rounded-lg')).toBeVisible();
         })

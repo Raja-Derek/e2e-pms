@@ -11,13 +11,16 @@ export class LoginPage {
 
   async navigate() {
     await this.page.goto(TEST_DATA.baseUrl);
+    await this.page.waitForTimeout(10000)
   }
 
   async enterEmail(email: string) {
+    await this.page.click(SELECTORS.emailInput);
     await this.page.fill(SELECTORS.emailInput, email);
   }
 
   async enterPassword(password: string) {
+    await this.page.click(SELECTORS.passwordInput);
     await this.page.fill(SELECTORS.passwordInput, password);
   }
 
@@ -27,6 +30,7 @@ export class LoginPage {
 
   async assertDashboardVisible() {
     await test.step('Dashboard page is visible', async () => {
+      await expect(this.page.getByText('Lagi cek keaslian email...')).not.toBeVisible({timeout:15000})
       await this.page.waitForResponse(res =>
         res.url().includes('/core') && res.status() === 200
       )

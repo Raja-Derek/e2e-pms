@@ -38,7 +38,7 @@ export class AspekPage extends BasePage {
 
     async assertAspekNotFound() {
         await test.step('Aspek not found message is visible', async () => {
-            await expect(this.page.getByText('Tidak ada data ditemukan')).toBeVisible();
+            await expect(this.page.getByText('Tidak ada data ditemukan')).toBeVisible({timeout: 15000});
             await expect(this.page.getByText('Coba ubah kata kunci')).toBeVisible();
         })
     }

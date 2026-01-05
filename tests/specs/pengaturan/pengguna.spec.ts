@@ -13,7 +13,7 @@ test.describe.serial('Menu Pengguna', () => {
             role: 'Karyawan',
             departemen: 'Marketing Kode: MKT',
             posisi: 'Karyawan',
-            atasan: 'ADAM1',
+            atasan: 'ADAM',
             divisi: 'SEMUA DIVISI'
         })
         await adminPage.assertSuccessAddPengguna()
@@ -42,7 +42,7 @@ test.describe.serial('Menu Pengguna', () => {
             role: 'Karyawan',
             departemen: 'Digital Marketing Kode: DM',
             posisi: 'Karyawan',
-            atasan: 'ADAM1',
+            atasan: 'ADAM',
             divisi: 'SEMUA DIVISI'
         })
 
