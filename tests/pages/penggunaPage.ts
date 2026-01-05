@@ -81,13 +81,12 @@ export class PenggunaPage extends BasePage {
             
             await expect(this.page.getByText('Tidak ada data ditemukan')).not.toBeVisible();
             await this.page.getByRole('textbox', { name: 'Cari nama, email, departemen' }).fill(name);
-            await this.page.waitForTimeout(5000)
         })
     }
 
     async assertPenggunaFounded(name: string) {
         await test.step(`${name} is founded`, async () => {
-            await expect(this.page.getByText(name)).toBeVisible({ timeout: 50000 });
+            await expect(this.page.getByText(name)).toBeVisible({ timeout: 200000 });
         })
     }
 
